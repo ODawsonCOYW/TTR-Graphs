@@ -1,5 +1,6 @@
 import numpy as np
 from numpy import linalg as LA
+import matplotlib.pyplot as plt
 
 # Number of vertices
 n = 22
@@ -40,11 +41,27 @@ for i, neighbors in adj_list.items():
         adj_matrix[j-1, i-1] = 1  # symmetric
 
 # Print the adjacency matrix
-print(adj_matrix)
+# print(adj_matrix)
 
-eigenvalues, eigenvectors = LA.eig(adj_matrix)
+# eigenvalues, eigenvectors = LA.eig(adj_matrix)
 
-print(eigenvalues)
+# print(eigenvalues)
+
+degrees = [len(adj_list[i]) for i in sorted(adj_list)]
+
+norm_degrees = [d / (len(degrees) - 1) for d in degrees]
+
+plt.hist(degrees)
+plt.xlabel("Degree")
+plt.ylabel("Frequency")
+plt.title("Histogram of Node Degrees (FJ EU)")
+plt.show()
+
+plt.hist(norm_degrees)
+plt.xlabel("Degree")
+plt.ylabel("Frequency")
+plt.title("Histogram of Normalised Node Degrees (FJ EU)")
+plt.show()
 
 # #Sage Code
 
@@ -89,3 +106,4 @@ print(eigenvalues)
 # G = Graph(adj_matrix)
 
 # G.show(title="First Journey EU")
+
