@@ -1,4 +1,5 @@
-import numpy as np
+import numpy as npimport numpy as np
+import sympy as sp
 from numpy import linalg as LA
 import matplotlib.pyplot as plt 
 
@@ -57,6 +58,26 @@ plt.ylabel("Frequency")
 plt.title("Histogram of Normalised Node Degrees (Amsterdam)")
 plt.show()
 
+def laplacian_from_adj(A):
+    # Degree matrix is just a diagonal of row sums
+    degrees = np.sum(A, axis=1)
+    D = np.diag(degrees)
+    return D - A
+
+laplacian = laplacian_from_adj(adj_matrix)
+
+def num_spanning_trees_exact(adj):
+    L = laplacian_from_adj(adj_matrix)
+    n = L.shape[0]
+    if n <= 1:
+        return 1
+    # delete first row and column
+    Lm = L[1:, 1:]
+    Lm_sym = sp.Matrix(Lm)
+    return int(Lm_sym.det())
+
+print(num_spanning_trees_exact(adj_matrix))
+
 ### SAGE 
 
 # # number of vertices
@@ -93,3 +114,5 @@ plt.show()
 #         adj_matrix[j-1, i-1] = 1
 
 # adj_matrix
+
+
