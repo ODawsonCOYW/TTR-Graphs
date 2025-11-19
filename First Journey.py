@@ -1,5 +1,6 @@
 import numpy as np
 from numpy import linalg as LA
+import matplotlib.pyplot as plt
 
 # Number of vertices
 n = 19
@@ -37,11 +38,27 @@ for i, neighbors in adj_list.items():
         adj_matrix[j-1, i-1] = 1  # symmetric
 
 # Print the adjacency matrix
-print(adj_matrix)
+# print(adj_matrix)
 
-eigenvalues, eigenvectors = LA.eig(adj_matrix)
+# eigenvalues, eigenvectors = LA.eig(adj_matrix)
 
-print(eigenvalues)
+# print(eigenvalues)
+
+degrees = [len(adj_list[i]) for i in sorted(adj_list)]
+
+norm_degrees = [d / (len(degrees) - 1) for d in degrees]
+
+plt.hist(degrees)
+plt.xlabel("Degree")
+plt.ylabel("Frequency")
+plt.title("Histogram of Node Degrees (FJ USA)")
+plt.show()
+
+plt.hist(norm_degrees)
+plt.xlabel("Degree")
+plt.ylabel("Frequency")
+plt.title("Histogram of Normalised Node Degrees (FJ USA)")
+plt.show()
 
 
 # # # Sage Math Code
@@ -74,12 +91,3 @@ print(eigenvalues)
 #     18: [17, 13, 19],
 #     19: [18, 13, 14]
 # }
-
-# # Fill the matrix (undirected)
-# for i, neighbors in adj.items():
-#     for j in neighbors:
-#         A[i-1, j-1] = 1
-#         A[j-1, i-1] = 1  # symmetric
-
-# # Display the matrix
-# A
