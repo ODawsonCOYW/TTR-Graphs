@@ -1,4 +1,5 @@
 import numpy as np
+import sympy as sp
 from numpy import linalg as LA
 import matplotlib.pyplot as plt 
 
@@ -34,28 +35,9 @@ for i, neighbors in adj_list.items():
         adj_matrix[j-1, i-1] = 1  # symmetric
 
 # Print the adjacency matrix
-# print(adj_matrix)
+#print(adj_matrix)
 
 eigenvalues, eigenvectors = LA.eig(adj_matrix)
-
-# print(eigenvalues)
-# print(eigenvectors)
-
-degrees = [len(adj_list[i]) for i in sorted(adj_list)]
-
-norm_degrees = [d / (len(degrees) - 1) for d in degrees]
-
-plt.hist(degrees)
-plt.xlabel("Degree")
-plt.ylabel("Frequency")
-plt.title("Histogram of Node Degrees (New York)")
-plt.show()
-
-plt.hist(norm_degrees)
-plt.xlabel("Degree")
-plt.ylabel("Frequency")
-plt.title("Histogram of Normalised Node Degrees (New York)")
-plt.show()
 
 # #Sage 
 
@@ -92,5 +74,41 @@ plt.show()
 
 # # Display the adjacency matrix
 # A
+
+def laplacian_from_adj(A):
+    # Degree matrix is just a diagonal of row sums
+    degrees = np.sum(A, axis=1)
+    D = np.diag(degrees)
+    return D - A
+
+laplacian = laplacian_from_adj(adj_matrix)
+
+def num_spanning_trees_exact(adj):
+    L = laplacian_from_adj(adj_matrix)
+    n = L.shape[0]
+    if n <= 1:
+        return 1
+    # delete first row and column
+    Lm = L[1:, 1:]
+    Lm_sym = sp.Matrix(Lm)
+    return int(Lm_sym.det())
+
+print(num_spanning_trees_exact(adj_matrix))
+
+degrees = [len(adj_list[i]) for i in sorted(adj_list)]
+
+norm_degrees = [d / (len(degrees) - 1) for d in degrees]
+
+plt.hist(degrees)
+plt.xlabel("Degree")
+plt.ylabel("Frequency")
+plt.title("Histogram of Node Degrees (New York)")
+plt.show()
+
+plt.hist(norm_degrees)
+plt.xlabel("Degree")
+plt.ylabel("Frequency")
+plt.title("Histogram of Normalised Node Degrees (New York)")
+plt.show()
 
 
