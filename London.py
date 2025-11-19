@@ -1,4 +1,5 @@
 import numpy as np
+import sympy as sp
 from numpy import linalg as LA
 import matplotlib.pyplot as plt 
 
@@ -8,21 +9,23 @@ n = 17
 adj_matrix = np.zeros((n, n), dtype=int)
 
 adj_list = {
-    1: [2, 3, 4],
-    2: [1, 4, 5],
-    3: [1, 4, 6, 7],
-    4: [1, 2, 3, 5, 6],
-    5: [2, 4, 6, 8],
-    6: [3, 4, 5, 7, 8],
-    7: [3, 6, 8, 9, 11],
-    8: [5, 6, 7, 9, 10],
-    9: [7, 8, 10, 11, 12, 13],
-    10: [8, 9, 12],
-    11: [7, 9, 14],
-    12: [9, 10, 13, 15],
-    13: [15, 14, 12, 9],
-    14: [11, 13, 15],
-    15: [14, 13, 12]
+    1:  [2, 6, 7, 11],
+    2:  [1, 3, 6],
+    3:  [2, 4, 6],
+    4:  [3, 5, 6, 9],
+    5:  [4, 9, 10],
+    6:  [1, 2, 3, 4, 7, 8],
+    7:  [1, 6, 8, 11, 12, 13],
+    8:  [6, 7, 9, 13],
+    9:  [4, 5, 8, 10, 16],
+    10: [5, 9, 16, 17],
+    11: [1, 7, 12],
+    12: [7, 11, 13, 14],
+    13: [7, 8, 12, 14, 15],
+    14: [12, 13, 15, 17],
+    15: [13, 14, 16, 17],
+    16: [9, 10, 15, 17],
+    17: [10, 14, 15, 16],
 }
 
 # Fill the adjacency matrix (undirected graph)
@@ -43,17 +46,17 @@ degrees = [len(adj_list[i]) for i in sorted(adj_list)]
 
 norm_degrees = [d / (len(degrees) - 1) for d in degrees]
 
-# plt.hist(degrees)
-# plt.xlabel("Degree")
-# plt.ylabel("Frequency")
-# plt.title("Histogram of Node Degrees (London)")
-# plt.show()
+plt.hist(degrees)
+plt.xlabel("Degree")
+plt.ylabel("Frequency")
+plt.title("Histogram of Node Degrees (London)")
+plt.show()
 
-# plt.hist(norm_degrees)
-# plt.xlabel("Degree")
-# plt.ylabel("Frequency")
-# plt.title("Histogram of Normalised Node Degrees (London)")
-# plt.show()
+plt.hist(norm_degrees)
+plt.xlabel("Degree")
+plt.ylabel("Frequency")
+plt.title("Histogram of Normalised Node Degrees (London)")
+plt.show()
 
 def laplacian_from_adj(A):
     # Degree matrix is just a diagonal of row sums
@@ -63,7 +66,17 @@ def laplacian_from_adj(A):
 
 laplacian = laplacian_from_adj(adj_matrix)
 
-print(laplacian)
+def num_spanning_trees_exact(adj):
+    L = laplacian_from_adj(adj_matrix)
+    n = L.shape[0]
+    if n <= 1:
+        return 1
+    # delete first row and column
+    Lm = L[1:, 1:]
+    Lm_sym = sp.Matrix(Lm)
+    return int(Lm_sym.det())
+
+print(num_spanning_trees_exact(adj_matrix))
 
 
 
