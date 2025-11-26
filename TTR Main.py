@@ -3,6 +3,8 @@ import sympy as sp
 from numpy import linalg as LA
 import matplotlib.pyplot as plt 
 
+np.set_printoptions(threshold=np.inf)
+
 adj_list_London = {
     1:  [2, 6, 7, 11],
     2:  [1, 3, 6],
@@ -316,3 +318,19 @@ def Spanning_trees_vs_size():
     plt.title("Spanning Trees vs Graph Size")
     plt.grid(True)
     plt.show()
+
+#Run a for loop over indices i, let these indices be the power of the adjacency matrix
+#Then progressively sum them to an empty nxn matrix. This will form a matrix witht the
+#number of walks of maximum length max(i)
+
+def number_of_walks(AL, n, i, j, max_length):
+    
+    # Max length allowed is 15 before negatives
+    
+    start = np.zeros((n, n), dtype=int)
+    
+    for i in range(1,max_length):
+        A = matrix_power(form_adj_matrix(n, AL), i)
+        start = np.add(start, A)
+
+    return start[i][j]
