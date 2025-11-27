@@ -340,4 +340,20 @@ def number_of_walks(AL, n, i, j, max_length):
 
     return start[i][j]
 
-print(number_of_walks(adj_list_NY, 15, 10, 14, 3))
+# The above function counts all walks so use the one below which counts simple paths
+
+def number_of_simple_paths(AL, n, i, j, max_length):
+    count = 0
+    
+    def dfs(current, target, visited, length):
+        nonlocal count
+        if length > max_length:
+            return
+        if current == target and length > 0:
+            count += 1
+        for neighbor in AL[current]:
+            if neighbor not in visited:
+                dfs(neighbor, target, visited | {neighbor}, length + 1)
+    
+    dfs(i, j, {i}, 0)
+    return count
