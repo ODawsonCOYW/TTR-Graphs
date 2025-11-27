@@ -325,12 +325,19 @@ def Spanning_trees_vs_size():
 
 def number_of_walks(AL, n, i, j, max_length):
     
+    # AL : Adj List
+    # n: Number of vertices
+    # i, j: i -> j
+    # max_length: Maximum number of edges in a path to be considered in the count  
     # Max length allowed is 15 before negatives
     
     start = np.zeros((n, n), dtype=int)
+    A = form_adj_matrix(n, AL)
     
-    for i in range(1,max_length):
-        A = matrix_power(form_adj_matrix(n, AL), i)
-        start = np.add(start, A)
+    for k in range(1,max_length+1):
+        B = matrix_power(A, k)
+        start = np.add(start, B)
 
     return start[i][j]
+
+print(number_of_walks(adj_list_NY, 15, 10, 14, 3))
