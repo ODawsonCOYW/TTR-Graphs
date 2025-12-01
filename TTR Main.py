@@ -2,6 +2,7 @@ import numpy as np
 import sympy as sp
 from numpy import linalg as LA
 import matplotlib.pyplot as plt 
+from numpy.linalg import matrix_power
 
 np.set_printoptions(threshold=np.inf)
 
