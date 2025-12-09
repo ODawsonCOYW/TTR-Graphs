@@ -242,7 +242,7 @@ def form_weighted_adj_matrix(n, WAL):
     
     return adj_matrix
 
-print(form_weighted_adj_matrix(15, adj_list_NY_W))
+# print(form_weighted_adj_matrix(15, adj_list_NY_W))
 
 def form_spectrum(A):
         
@@ -408,3 +408,32 @@ def number_of_simple_paths(AL, n, i, j, max_length):
     
     dfs(i, j, {i}, 0)
     return count
+
+import pandas as pd
+
+# Data
+data = {
+    "Route": [
+        "4->13","1->12","3->14","6->14","5->14","6->13","3->10","0->8",
+        "1->6","3->12","3->9","9->10","1->7","2->1","5->8","2->4","0->5","11->13"
+    ],
+    "Points": [8,8,8,8,7,6,6,6,5,4,4,4,4,3,3,3,3,2],
+    "Norm Points": [0.533,0.533,0.533,0.533,0.467,0.400,0.400,0.400,
+                    0.333,0.267,0.267,0.267,0.267,0.200,0.200,0.200,0.200,0.133],
+    "Len 5": [23,12,12,34,34,26,37,43,44,32,41,28,40,29,31,31,28,19],
+    "Len 10": [1380,1877,1650,606,1045,586,1002,744,410,493,916,264,449,215,381,192,238,205],
+    "Len 15": [2663,3376,2708,1193,2023,1192,2072,1691,1103,913,1862,592,1185,684,863,392,844,540]
+}
+
+df = pd.DataFrame(data)
+
+# Compute correlations of Points with route lengths
+for col in ["Len 5", "Len 10", "Len 15"]:
+    corr = df["Points"].corr(df[col])
+    print(f"Correlation between Points and {col}: {corr:.3f}")
+
+
+
+
+
+
