@@ -3,6 +3,7 @@ import sympy as sp
 from numpy import linalg as LA
 import matplotlib.pyplot as plt 
 from numpy.linalg import matrix_power
+from Graph Data import Graph_EU
 
 np.set_printoptions(threshold=np.inf)
 
