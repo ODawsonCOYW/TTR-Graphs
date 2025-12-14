@@ -4,7 +4,7 @@ from numpy import linalg as LA
 import matplotlib.pyplot as plt 
 from numpy.linalg import matrix_power
 from Graph_Data import Graph, adj_list_EU, adj_list_Am, adj_list_FJ, adj_list_FJE, adj_list_London
-from Graph_Data import adj_list_NY, adj_list_NY_W, adj_list_USA, adj_NL
+from Graph_Data import adj_list_NY, adj_list_NY_W, adj_list_USA, adj_NL, adj_list_GER, adj_list_OW, adj_list_HoA
 
 np.set_printoptions(threshold=np.inf)
 
