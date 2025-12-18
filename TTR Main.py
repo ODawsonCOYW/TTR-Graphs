@@ -2,9 +2,11 @@ import numpy as np
 import sympy as sp
 from numpy import linalg as LA
 import matplotlib.pyplot as plt 
+import networkx as nx
 from numpy.linalg import matrix_power
 from Graph_Data import Graph, adj_list_EU, adj_list_Am, adj_list_FJ, adj_list_FJE, adj_list_London
 from Graph_Data import adj_list_NY, adj_list_NY_W, adj_list_USA, adj_NL, adj_list_GER, adj_list_OW, adj_list_HoA
+from Graph_Data import Europe_Route_Freq, adj_list_PEN, routes_EU, routes_USA, routes_NY
 
 np.set_printoptions(threshold=np.inf)
 
@@ -109,12 +111,6 @@ def avg_deg_vs_size():
     
     plt.show()
 
-# plot_deg_dist(adj_list_NY, name="New York")
-# plot_deg_dist(adj_list_London, name="London")
-# plot_deg_dist(adj_list_FJ, name="First Journey")
-# plot_deg_dist(adj_list_FJE, name="First Journey Europe")
-# plot_deg_dist(adj_list_USA, name="USA")
-
 def Spanning_trees_vs_size():
     # --- Put your adjacency lists into a list ---
     graphs = [
@@ -197,5 +193,23 @@ def number_of_simple_paths(AL, n, i, j, max_length):
     dfs(i, j, {i}, 0)
     return count
 
+def connectivity(AL, s, t):
+    
+    # Returns the number of edge disjoint paths from s to t, using mengers thm to find max flow given unit capacity on edges.
+    
+    G = nx.Graph()
+    
+    for u, nbrs in AL.items():
+        for v in nbrs:
+            if u < v:
+                G.add_edge(u, v, capacity=1)
+    
+    flow_value, _ = nx.maximum_flow(G, s, t)
+    
+    return f"The number of edge-disjoint paths between {s} and {t} is {flow_value}"
 
+for s,t in routes_NY:
+    s = s+1
+    t = t+1
+    print(connectivity(adj_list_NY, s, t))
 
