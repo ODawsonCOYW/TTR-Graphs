@@ -4,6 +4,7 @@ from numpy import linalg as LA
 import matplotlib.pyplot as plt 
 import networkx as nx
 from numpy.linalg import matrix_power
+from collections import deque
 from Graph_Data import Graph, adj_list_EU, adj_list_Am, adj_list_FJ, adj_list_FJE, adj_list_London
 from Graph_Data import adj_list_NY, adj_list_NY_W, adj_list_USA, adj_NL, adj_list_GER, adj_list_OW, adj_list_HoA
 from Graph_Data import Europe_Route_Freq, adj_list_PEN, routes_EU, routes_USA, routes_NY
@@ -37,7 +38,6 @@ def form_weighted_adj_matrix(n, WAL):
 def form_spectrum(A):
         
     spectrum, eigenvectors = LA.eig(A)
-    
     return spectrum
 
 def laplacian_from_adj(A):
@@ -208,8 +208,44 @@ def connectivity(AL, s, t):
     
     return f"The number of edge-disjoint paths between {s} and {t} is {flow_value}"
 
-for s,t in routes_NY:
-    s = s+1
-    t = t+1
-    print(connectivity(adj_list_NY, s, t))
+def bfs_shortest_path(AL, s, t):
+    dist = {v: float("inf") for v in AL}
+    prev = {v: None for v in AL}
+
+    dist[s] = 0
+    q = deque([s])
+
+    while q:
+        u = q.popleft()
+
+        # early exit: first time we see t is shortest
+        if u == t:
+            break
+
+        for v in AL[u]:
+            if dist[v] == float("inf"):   # not visited
+                dist[v] = dist[u] + 1
+                prev[v] = u
+                q.append(v)
+
+    # if t was never reached
+    if dist[t] == float("inf"):
+        return None, float("inf")
+
+    # reconstruct path
+    path = []
+    cur = t
+    while cur is not None:
+        path.append(cur)
+        cur = prev[cur]
+    path.reverse()
+
+    return path, dist[t]
+
+for u, v in routes_NY:
+    u = u+1
+    v = v+1
+    path, length = bfs_shortest_path(adj_list_NY, u, v)
+    print(f"The re-indexed shortest path between {u} and {v} is of length {length}. The path is {path}")
+
 
