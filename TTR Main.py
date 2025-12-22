@@ -3,11 +3,12 @@ import sympy as sp
 from numpy import linalg as LA
 import matplotlib.pyplot as plt 
 import networkx as nx
+import pandas as pd
 from numpy.linalg import matrix_power
 from collections import deque
 from Graph_Data import Graph, adj_list_EU, adj_list_Am, adj_list_FJ, adj_list_FJE, adj_list_London
 from Graph_Data import adj_list_NY, adj_list_NY_W, adj_list_USA, adj_NL, adj_list_GER, adj_list_OW, adj_list_HoA
-from Graph_Data import Europe_Route_Freq, adj_list_PEN, routes_EU, routes_USA, routes_NY
+from Graph_Data import Europe_Route_Freq, adj_list_PEN, routes_EU, routes_USA, routes_NY, routes_PEN, routes_London
 
 np.set_printoptions(threshold=np.inf)
 
@@ -242,10 +243,7 @@ def bfs_shortest_path(AL, s, t):
 
     return path, dist[t]
 
-for u, v in routes_NY:
-    u = u+1
-    v = v+1
-    path, length = bfs_shortest_path(adj_list_NY, u, v)
-    print(f"The re-indexed shortest path between {u} and {v} is of length {length}. The path is {path}")
-
-
+# for u, v in routes_London:
+#     max_L = 8
+#     amount = number_of_simple_paths(adj_list_London, 17, u, v, max_L)
+#     print(f"The number of paths of max length {max_L} from {u} to {v} is {amount}")
