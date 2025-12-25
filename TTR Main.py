@@ -8,7 +8,7 @@ from collections import deque
 from Graph_Data import Graph, adj_list_EU, adj_list_Am, adj_list_FJ, adj_list_FJE, adj_list_London, routes_Germany
 from Graph_Data import adj_list_NY, adj_list_NY_W, adj_list_USA, adj_NL, adj_list_GER, adj_list_OW, adj_list_HoA
 from Graph_Data import Europe_Route_Freq, adj_list_PEN, routes_EU, routes_USA, routes_NY, routes_PEN, routes_London
-from Graph_Data import routes_India, adj_list_India
+from Graph_Data import routes_India, adj_list_India, adj_list_USA_W
 
 np.set_printoptions(threshold=np.inf)
 
