@@ -194,6 +194,31 @@ def number_of_simple_paths(AL, n, i, j, max_length):
     dfs(i, j, {i}, 0)
     return count
 
+def number_of_simple_paths_weighted(AL, i, j, max_weight):
+    count = 0
+
+    def dfs(current, target, visited, total_weight):
+        nonlocal count
+
+        if total_weight > max_weight:
+            return
+
+        if current == target and total_weight > 0:
+            count += 1
+
+        for neighbor, weight in AL[current]:
+            if neighbor not in visited:
+                dfs(
+                    neighbor,
+                    target,
+                    visited | {neighbor},
+                    total_weight + weight
+                )
+
+    dfs(i, j, {i}, 0)
+    return count
+
+
 def connectivity(AL, s, t):
     
     # Returns the number of edge disjoint paths from s to t, using mengers thm to find max flow given unit capacity on edges.
@@ -250,4 +275,3 @@ for u, v in routes_India:
 #     Max_L = 10
 #     total = number_of_simple_paths(adj_list_India, 39, u, v, Max_L)
 #     print(f"The number of simple paths of max length {Max_L} from {u} to {v} is {total}")
-
