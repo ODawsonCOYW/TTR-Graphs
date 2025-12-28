@@ -1,5 +1,6 @@
 import numpy as np
 import sympy as sp
+import heapq
 from numpy import linalg as LA
 import matplotlib.pyplot as plt 
 import networkx as nx
@@ -8,7 +9,7 @@ from collections import deque
 from Graph_Data import Graph, adj_list_EU, adj_list_Am, adj_list_FJ, adj_list_FJE, adj_list_London, routes_Germany
 from Graph_Data import adj_list_NY, adj_list_NY_W, adj_list_USA, adj_NL, adj_list_GER, adj_list_OW, adj_list_HoA
 from Graph_Data import Europe_Route_Freq, adj_list_PEN, routes_EU, routes_USA, routes_NY, routes_PEN, routes_London
-from Graph_Data import routes_India, adj_list_India, adj_list_USA_W
+from Graph_Data import routes_India, adj_list_India, adj_list_USA_W, adj_list_EU_W
 
 np.set_printoptions(threshold=np.inf)
 
@@ -271,7 +272,31 @@ def bfs_shortest_path(AL, s, t):
 for u, v in routes_India:
     print(connectivity(adj_list_India, u, v))
 
-# for u,v in routes_India:
-#     Max_L = 10
-#     total = number_of_simple_paths(adj_list_India, 39, u, v, Max_L)
-#     print(f"The number of simple paths of max length {Max_L} from {u} to {v} is {total}")
+
+def dijkstra_shortest_path(graph, source, path_end):
+    # shortest distance to each node
+    dist = {v: float('inf') for v in graph}
+    dist[source] = 0
+
+    # priority queue of (distance, node)
+    pq = [(0, source)]
+
+    while pq:
+        current_dist, u = heapq.heappop(pq)
+
+        # skip outdated entries
+        if current_dist > dist[u]:
+            continue
+
+        for v, weight in graph[u]:
+            new_dist = current_dist + weight
+
+            if new_dist < dist[v]:
+                dist[v] = new_dist
+                heapq.heappush(pq, (new_dist, v))
+
+    return dist[path_end]
+
+
+for u,v in routes_EU:
+    length = dijkstra_shortest_path(adj_list_EU_W, u, v)
