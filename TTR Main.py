@@ -9,7 +9,8 @@ from collections import deque
 from Graph_Data import Graph, adj_list_EU, adj_list_Am, adj_list_FJ, adj_list_FJE, adj_list_London, routes_Germany
 from Graph_Data import adj_list_NY, adj_list_NY_W, adj_list_USA, adj_NL, adj_list_GER, adj_list_OW, adj_list_HoA
 from Graph_Data import Europe_Route_Freq, adj_list_PEN, routes_EU, routes_USA, routes_NY, routes_PEN, routes_London
-from Graph_Data import routes_India, adj_list_India, adj_list_USA_W, adj_list_EU_W
+from Graph_Data import routes_India, adj_list_India, adj_list_USA_W, adj_list_EU_W, adj_list_PEN_W, adj_list_India_W
+from Graph_Data import adj_list_London_W, adj_list_GER_W
 
 np.set_printoptions(threshold=np.inf)
 
@@ -269,9 +270,6 @@ def bfs_shortest_path(AL, s, t):
 
     return path, dist[t]
 
-for u, v in routes_India:
-    print(connectivity(adj_list_India, u, v))
-
 
 def dijkstra_shortest_path(graph, source, path_end):
     # shortest distance to each node
@@ -298,5 +296,12 @@ def dijkstra_shortest_path(graph, source, path_end):
     return dist[path_end]
 
 
-for u,v in routes_EU:
-    length = dijkstra_shortest_path(adj_list_EU_W, u, v)
+for u,v in routes_Germany:
+    length = dijkstra_shortest_path(adj_list_GER_W, u, v)
+    print(f"The minimum weight of a path between {u} and {v} is {length}")
+    
+    
+    
+    
+    
+    
