@@ -296,12 +296,6 @@ def dijkstra_shortest_path(graph, source, path_end):
     return dist[path_end]
 
 
-for u,v in routes_Germany:
-    length = dijkstra_shortest_path(adj_list_GER_W, u, v)
-    print(f"The minimum weight of a path between {u} and {v} is {length}")
-    
-    
-    
     
     
     
