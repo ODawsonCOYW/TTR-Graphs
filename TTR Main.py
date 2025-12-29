@@ -220,7 +220,6 @@ def number_of_simple_paths_weighted(AL, i, j, max_weight):
     dfs(i, j, {i}, 0)
     return count
 
-
 def connectivity(AL, s, t):
     
     # Returns the number of edge disjoint paths from s to t, using mengers thm to find max flow given unit capacity on edges.
@@ -295,7 +294,69 @@ def dijkstra_shortest_path(graph, source, path_end):
 
     return dist[path_end]
 
+def count_paths(adj, s, t, target_weight):
+    count = 0
 
+    def dfs(u, current_weight, visited):
+        nonlocal count
+
+        # prune
+        if current_weight > target_weight:
+            return
+
+        if u == t:
+            if current_weight == target_weight:
+                count += 1
+            return
+
+        for v, w in adj[u]:
+            if v not in visited:
+                visited.add(v)
+                dfs(v, current_weight + w, visited)
+                visited.remove(v)
+
+    dfs(s, 0, {s})
+    return count
+
+def find_paths(adj, s, t, target_weight):
+    paths = []
+
+    def dfs(u, current_weight, path, visited):
+        # prune
+        if current_weight > target_weight:
+            return
+
+        if u == t:
+            if current_weight == target_weight:
+                paths.append(path.copy())
+            return
+
+        for v, w in adj[u]:
+            if v not in visited:
+                visited.add(v)
+                path.append(v)
+
+                dfs(v, current_weight + w, path, visited)
+
+                path.pop()
+                visited.remove(v)
+
+    dfs(s, 0, [s], {s})
+    return paths
+
+def number_of_shortest_paths(adj, s, t):
+    
+    weight = dijkstra_shortest_path(adj, s, t)
+    count = count_paths(adj, s, t, weight)
+    paths = find_paths(adj, s, t, weight)
+    
+    return count, paths
+
+for u,v in routes_Germany:
+    num, route = number_of_shortest_paths(adj_list_GER_W, u, v)
+    print(f"The number of minimal paths from {u} to {v} is {num}")
+
+    
     
     
     
