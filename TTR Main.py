@@ -85,7 +85,13 @@ def avg_deg_vs_size():
         "FJ": adj_list_FJ,
         "FJE": adj_list_FJE,
         "Am": adj_list_Am,
-        "USA": adj_list_USA
+        "USA": adj_list_USA,
+        "Germany": adj_list_GER,
+        "Ned": adj_NL,
+        "Penn": adj_list_PEN,
+        "HoA": adj_list_HoA,
+        "India": adj_list_India,
+        "Old West": adj_list_OW
     }
     
     # --- Compute stats ---
@@ -123,6 +129,12 @@ def Spanning_trees_vs_size():
         ("FJE", adj_list_FJE),
         ("Am", adj_list_Am),
         ("USA", adj_list_USA),
+        ("Germany", adj_list_GER),
+        ("Ned", adj_NL),
+        ("Penn", adj_list_PEN),
+        ("HoA", adj_list_HoA),
+        ("India", adj_list_India),
+        ("Old West", adj_list_OW)
     ]
     
     sizes = []
@@ -352,11 +364,12 @@ def number_of_shortest_paths(adj, s, t):
     
     return count, paths
 
-for u,v in routes_Germany:
-    num, route = number_of_shortest_paths(adj_list_GER_W, u, v)
-    print(f"The number of minimal paths from {u} to {v} is {num}")
+# for u,v in routes_Germany:
+#     num, route = number_of_shortest_paths(adj_list_GER_W, u, v)
+#     print(f"The number of minimal paths from {u} to {v} is {num}")
 
     
+avg_deg_vs_size()
     
     
     
