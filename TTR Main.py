@@ -364,12 +364,14 @@ def number_of_shortest_paths(adj, s, t):
     
     return count, paths
 
-# for u,v in routes_Germany:
-#     num, route = number_of_shortest_paths(adj_list_GER_W, u, v)
-#     print(f"The number of minimal paths from {u} to {v} is {num}")
+lengths = [10,15,20,25,30]
+
+for length in lengths:
+    num = number_of_simple_paths_weighted(adj_list_GER_W, 17, 37, length)
+    print(f"The number of simple paths from {17} to {37} of max weight {length} is {num}")
 
     
-avg_deg_vs_size()
+
     
     
     
