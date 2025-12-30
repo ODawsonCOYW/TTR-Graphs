@@ -95,6 +95,28 @@ def face_plots(adj, adj_W, name):
     # Show the plot
     plt.show()
     
+def face_degree_counts(faces):
+    # Find the maximum face degree
+    max_deg = max(len(face) for face in faces)
+    
+    counts = []
+    for d in range(3, max_deg + 1):
+        c = sum(1 for face in faces if len(face) == d)
+        counts.append(c)
+    return counts
+
+G = nx.Graph(adj_list_London)
+pos = nx.planar_layout(G)
+    
+rot_London = make_rotation_system(adj_list_London, pos)
+
+face_list = find_faces(rot_London)
+
+final = face_degree_counts(face_list)
+
+print(final)
+    
+    
 # face_plots(adj_list_USA, adj_list_USA_W, "USA")
 # face_plots(adj_list_EU, adj_list_EU_W, "EU")
 # face_plots(adj_list_GER, adj_list_GER_W, "Germany")
