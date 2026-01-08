@@ -74,6 +74,8 @@ def face_plots(adj, adj_W, name):
     
     face_stuff = face_info(adj, adj_W, pos)
     
+    print(face_stuff)
+    
     xs = []
     ys = []
     
@@ -117,10 +119,10 @@ final = face_degree_counts(face_list)
 print(final)
     
     
-# face_plots(adj_list_USA, adj_list_USA_W, "USA")
-# face_plots(adj_list_EU, adj_list_EU_W, "EU")
-# face_plots(adj_list_GER, adj_list_GER_W, "Germany")
-# face_plots(adj_list_India, adj_list_India_W, "India")
-# face_plots(adj_list_PEN, adj_list_PEN_W, "Penn")
-# face_plots(adj_list_NY, adj_list_NY_W, "New York")
-# face_plots(adj_list_London, adj_list_London_W, "London")
+face_plots(adj_list_USA, adj_list_USA_W, "USA")
+face_plots(adj_list_EU, adj_list_EU_W, "EU")
+face_plots(adj_list_GER, adj_list_GER_W, "Germany")
+face_plots(adj_list_India, adj_list_India_W, "India")
+face_plots(adj_list_PEN, adj_list_PEN_W, "Penn")
+face_plots(adj_list_NY, adj_list_NY_W, "New York")
+face_plots(adj_list_London, adj_list_London_W, "London")
