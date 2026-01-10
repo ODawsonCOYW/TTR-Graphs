@@ -11,8 +11,8 @@ from Graph_Data import adj_list_NY, adj_list_NY_W, adj_list_USA, adj_NL, adj_lis
 from Graph_Data import Europe_Route_Freq, adj_list_PEN, routes_EU, routes_USA, routes_NY, routes_PEN, routes_London
 from Graph_Data import routes_India, adj_list_India, adj_list_USA_W, adj_list_EU_W, adj_list_PEN_W, adj_list_India_W
 from Graph_Data import adj_list_London_W, adj_list_GER_W
-from itertools import combinations
 from math import inf
+from itertools import combinations
 
 np.set_printoptions(threshold=np.inf)
 
@@ -375,18 +375,30 @@ def edges_in_paths(paths):
     return edges
 
 def remove_edge(adj, u, v):
-    # find weights
-    w_uv = next(w for x, w in adj[u] if x == v)
-    w_vu = next(w for x, w in adj[v] if x == u)
+    """
+    Safely remove undirected edge (u,v).
+    Returns the weight if removed, else None.
+    """
+    w = None
 
-    adj[u].remove((v, w_uv))
-    adj[v].remove((u, w_vu))
+    for i, (x, wt) in enumerate(adj.get(u, [])):
+        if x == v:
+            w = wt
+            adj[u].pop(i)
+            break
 
-    return w_uv  # return weight so we can restore
+    for i, (x, wt) in enumerate(adj.get(v, [])):
+        if x == u:
+            adj[v].pop(i)
+            break
+
+    return w
+
 
 def restore_edge(adj, u, v, w):
-    adj[u].append((v, w))
-    adj[v].append((u, w))
+    if w is not None:
+        adj[u].append((v, w))
+        adj[v].append((u, w))
 
 def replacement_shortest_paths(adj, paths, s, t):
     results = {}
@@ -449,37 +461,31 @@ def adaptive_lambda_all_outcomes(adj, s, t, lam):
             outcomes[tuple(removed_sequence)] = dist
             return
 
-        # YOUR exact call
         paths = find_paths(adj, s, t, dist)
 
-        # edges on current shortest paths
         edges = set()
         for path in paths:
             for i in range(len(path) - 1):
-                edges.add((path[i], path[i+1]))
+                u, v = path[i], path[i+1]
+                edges.add((u, v))
 
         for (u, v) in edges:
-            # remove edge
-            w = next(w for x, w in adj[u] if x == v)
-            adj[u].remove((v, w))
-            adj[v].remove((u, w))
+            w = remove_edge(adj, u, v)
+            if w is None:
+                continue
 
             recurse(k - 1, removed_sequence + [(u, v)])
 
-            # restore
-            adj[u].append((v, w))
-            adj[v].append((u, w))
+            restore_edge(adj, u, v, w)
 
     recurse(lam, [])
     return outcomes
 
+result = adaptive_lambda_all_outcomes(adj_list_London_W, 1, 10, 3)
+max_val = max(result.values())
 
-a, b = number_of_shortest_paths(adj_list_London_W, 1, 10)
-original, effects = lambda_robust_shortest_paths(adj_list_London_W, b, 1, 10, 2)
+max_sequences = [k for k, v in result.items() if v == max_val]
 
-print(b)
-print(original)
-print(effects)
-
-
-    
+print(f"The most trains needed to complete the destination ticket allowing for 3 removals is {max_val}")
+print("The edge removal sets that forced this are the following:")
+print(max_sequences)
