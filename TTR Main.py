@@ -11,6 +11,8 @@ from Graph_Data import adj_list_NY, adj_list_NY_W, adj_list_USA, adj_NL, adj_lis
 from Graph_Data import Europe_Route_Freq, adj_list_PEN, routes_EU, routes_USA, routes_NY, routes_PEN, routes_London
 from Graph_Data import routes_India, adj_list_India, adj_list_USA_W, adj_list_EU_W, adj_list_PEN_W, adj_list_India_W
 from Graph_Data import adj_list_London_W, adj_list_GER_W
+from itertools import combinations
+from math import inf
 
 np.set_printoptions(threshold=np.inf)
 
@@ -405,7 +407,79 @@ def replacement_shortest_paths(adj, paths, s, t):
 
     return original_dist, results
 
+def lambda_robust_shortest_paths(adj, paths, s, t, lam):
+    edges = list(edges_in_paths(paths))
+    original_dist = dijkstra_shortest_path(adj, s, t)
 
-    
-    
+    results = {}
+
+    for edge_set in combinations(edges, lam):
+        removed = []
+
+        for u, v in edge_set:
+            w = remove_edge(adj, u, v)   
+            removed.append((u, v, w))
+
+        new_dist = dijkstra_shortest_path(adj, s, t)
+        results[edge_set] = new_dist
+
+        for u, v, w in removed:
+            restore_edge(adj, u, v, w)   
+
+    return original_dist, results
+
+def adaptive_lambda_all_outcomes(adj, s, t, lam):
+    """
+    Returns:
+        outcomes : dict[tuple[edge], distance]
+    """
+
+    outcomes = {}
+
+    def recurse(k, removed_sequence):
+        dist = dijkstra_shortest_path(adj, s, t)
+
+        # disconnected
+        if dist == inf:
+            outcomes[tuple(removed_sequence)] = inf
+            return
+
+        # no more removals allowed
+        if k == 0:
+            outcomes[tuple(removed_sequence)] = dist
+            return
+
+        # YOUR exact call
+        paths = find_paths(adj, s, t, dist)
+
+        # edges on current shortest paths
+        edges = set()
+        for path in paths:
+            for i in range(len(path) - 1):
+                edges.add((path[i], path[i+1]))
+
+        for (u, v) in edges:
+            # remove edge
+            w = next(w for x, w in adj[u] if x == v)
+            adj[u].remove((v, w))
+            adj[v].remove((u, w))
+
+            recurse(k - 1, removed_sequence + [(u, v)])
+
+            # restore
+            adj[u].append((v, w))
+            adj[v].append((u, w))
+
+    recurse(lam, [])
+    return outcomes
+
+
+a, b = number_of_shortest_paths(adj_list_London_W, 1, 10)
+original, effects = lambda_robust_shortest_paths(adj_list_London_W, b, 1, 10, 2)
+
+print(b)
+print(original)
+print(effects)
+
+
     
