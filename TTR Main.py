@@ -364,13 +364,47 @@ def number_of_shortest_paths(adj, s, t):
     
     return count, paths
 
-lengths = [10,15,20,25,30]
+def edges_in_paths(paths):
+    edges = set()
+    for path in paths:
+        for i in range(len(path) - 1):
+            u, v = path[i], path[i+1]
+            edges.add(tuple(sorted((u, v))))
+    return edges
 
-for length in lengths:
-    num = number_of_simple_paths_weighted(adj_list_GER_W, 17, 37, length)
-    print(f"The number of simple paths from {17} to {37} of max weight {length} is {num}")
+def remove_edge(adj, u, v):
+    # find weights
+    w_uv = next(w for x, w in adj[u] if x == v)
+    w_vu = next(w for x, w in adj[v] if x == u)
 
-    
+    adj[u].remove((v, w_uv))
+    adj[v].remove((u, w_vu))
+
+    return w_uv  # return weight so we can restore
+
+def restore_edge(adj, u, v, w):
+    adj[u].append((v, w))
+    adj[v].append((u, w))
+
+def replacement_shortest_paths(adj, paths, s, t):
+    results = {}
+
+    original_dist = dijkstra_shortest_path(adj, s, t)
+    edges = edges_in_paths(paths)
+
+    for u, v in edges:
+        # remove edge
+        w = remove_edge(adj, u, v)
+
+        # recompute shortest path
+        new_dist = dijkstra_shortest_path(adj, s, t)
+        results[(u, v)] = new_dist
+
+        # restore edge
+        restore_edge(adj, u, v, w)
+
+    return original_dist, results
+
 
     
     
