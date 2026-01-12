@@ -88,6 +88,7 @@ def avg_deg_vs_size():
         "FJE": adj_list_FJE,
         "Am": adj_list_Am,
         "USA": adj_list_USA,
+        "EU" : adj_list_EU,
         "Germany": adj_list_GER,
         "Ned": adj_NL,
         "Penn": adj_list_PEN,
@@ -419,9 +420,10 @@ def replacement_shortest_paths(adj, paths, s, t):
 
     return original_dist, results
 
-def lambda_robust_shortest_paths(adj, paths, s, t, lam):
-    edges = list(edges_in_paths(paths))
+def lambda_robust_shortest_paths(adj, s, t, lam):
     original_dist = dijkstra_shortest_path(adj, s, t)
+    paths = find_paths(adj, s, t, original_dist)
+    edges = list(edges_in_paths(paths))
 
     results = {}
 
@@ -481,11 +483,13 @@ def adaptive_lambda_all_outcomes(adj, s, t, lam):
     recurse(lam, [])
     return outcomes
 
-result = adaptive_lambda_all_outcomes(adj_list_London_W, 1, 10, 3)
-max_val = max(result.values())
+# result = adaptive_lambda_all_outcomes(adj_list_London_W, 1, 10, 3)
+# max_val = max(result.values())
 
-max_sequences = [k for k, v in result.items() if v == max_val]
+# max_sequences = [k for k, v in result.items() if v == max_val]
 
-print(f"The most trains needed to complete the destination ticket allowing for 3 removals is {max_val}")
-print("The edge removal sets that forced this are the following:")
-print(max_sequences)
+# print(f"The most trains needed to complete the destination ticket allowing for 3 removals is {max_val}")
+# print("The edge removal sets that forced this are the following:")
+# print(max_sequences)
+
+avg_deg_vs_size()

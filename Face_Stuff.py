@@ -6,6 +6,7 @@ from Graph_Data import routes_India, adj_list_India, adj_list_USA_W, adj_list_EU
 from Graph_Data import adj_list_London_W, adj_list_GER_W
 import math
 import matplotlib.pyplot as plt
+from collections import Counter
 
 def make_rotation_system(adj, pos):
     rot = {}
@@ -39,6 +40,40 @@ def find_faces(rot):
             curr = next_edge(u, v)
         faces.append(face)
     return faces
+
+def face_degrees(faces, remove_outer = True):
+    """
+    faces: list of faces, where each face is a list of vertices
+    returns: list of face degrees
+    """
+    
+    degrees = [len(face) for face in faces]
+    
+    if remove_outer and degrees:
+        degrees.remove(max(degrees))
+    
+    return degrees
+
+
+def plot_face_degree_histogram(faces, title="Face Degree Distribution"):
+    """
+    Plots a histogram of face degrees using matplotlib.pyplot
+    """
+    degrees = face_degrees(faces)
+
+    # Count frequencies (useful for discrete histogram)
+    counts = Counter(degrees)
+    xs = sorted(counts.keys())
+    ys = [counts[k] for k in xs]
+
+    plt.figure()
+    plt.bar(xs, ys)
+    plt.xlabel("Face degree (number of edges)")
+    plt.ylabel("Number of faces")
+    plt.title(title)
+    plt.xticks(xs)
+    plt.show()
+
 
 def face_weight(face, edge_weights):
     total = 0
@@ -107,22 +142,25 @@ def face_degree_counts(faces):
         counts.append(c)
     return counts
 
-G = nx.Graph(adj_list_London)
+G = nx.Graph(adj_list_USA)
 pos = nx.planar_layout(G)
     
-rot_London = make_rotation_system(adj_list_London, pos)
+rot_London = make_rotation_system(adj_list_USA, pos)
 
 face_list = find_faces(rot_London)
 
-final = face_degree_counts(face_list)
+print(face_list)
+print(face_info(adj_list_USA, adj_list_USA_W, pos))
+#plot_face_degree_histogram(face_list, title = "Face Degree Distribution (Pennsylvania)")
 
-print(final)
+
     
-    
-face_plots(adj_list_USA, adj_list_USA_W, "USA")
-face_plots(adj_list_EU, adj_list_EU_W, "EU")
-face_plots(adj_list_GER, adj_list_GER_W, "Germany")
-face_plots(adj_list_India, adj_list_India_W, "India")
-face_plots(adj_list_PEN, adj_list_PEN_W, "Penn")
-face_plots(adj_list_NY, adj_list_NY_W, "New York")
-face_plots(adj_list_London, adj_list_London_W, "London")
+
+# face_plots(adj_list_USA, adj_list_USA_W, "USA")
+# face_plots(adj_list_EU, adj_list_EU_W, "EU")
+# face_plots(adj_list_GER, adj_list_GER_W, "Germany")
+# face_plots(adj_list_India, adj_list_India_W, "India")
+# face_plots(adj_list_PEN, adj_list_PEN_W, "Penn")
+# face_plots(adj_list_NY, adj_list_NY_W, "New York")
+# face_plots(adj_list_London, adj_list_London_W, "London")
+
