@@ -1,0 +1,360 @@
+==============================================================
+Effective Cutsets for the destination ticket between 10 and 14:
+The most trains needed allowing for 0 removals is 6
+Effective cut sets (minimum total weight among worst cases):
+[()]
+Total cut weight = 0
+The most trains needed allowing for 1 removals is 7
+Effective cut sets (minimum total weight among worst cases):
+[((14, 15),)]
+Total cut weight = 1
+The most trains needed allowing for 2 removals is 8
+Effective cut sets (minimum total weight among worst cases):
+[((14, 15), (14, 17))]
+Total cut weight = 4
+The most trains needed allowing for 3 removals is 11
+Effective cut sets (minimum total weight among worst cases):
+[((13, 14), (14, 15), (14, 17))]
+Total cut weight = 5
+==============================================================
+Effective Cutsets for the destination ticket between 13 and 16:
+The most trains needed allowing for 0 removals is 4
+Effective cut sets (minimum total weight among worst cases):
+[()]
+Total cut weight = 0
+The most trains needed allowing for 1 removals is 5
+Effective cut sets (minimum total weight among worst cases):
+[((15, 16),)]
+Total cut weight = 2
+The most trains needed allowing for 2 removals is 6
+Effective cut sets (minimum total weight among worst cases):
+[((8, 13), (15, 16)), ((9, 16), (15, 16))]
+Total cut weight = 3
+The most trains needed allowing for 3 removals is 10
+Effective cut sets (minimum total weight among worst cases):
+[((9, 16), (15, 16), (16, 17))]
+Total cut weight = 5
+==============================================================
+Effective Cutsets for the destination ticket between 1 and 10:
+The most trains needed allowing for 0 removals is 11
+Effective cut sets (minimum total weight among worst cases):
+[()]
+Total cut weight = 0
+The most trains needed allowing for 1 removals is 12
+Effective cut sets (minimum total weight among worst cases):
+[((9, 10),), ((8, 9),)]
+Total cut weight = 3
+The most trains needed allowing for 2 removals is 13
+Effective cut sets (minimum total weight among worst cases):
+[((9, 10), (10, 16))]
+Total cut weight = 6
+The most trains needed allowing for 3 removals is 14
+Effective cut sets (minimum total weight among worst cases):
+[((7, 13), (9, 10), (10, 16))]
+Total cut weight = 7
+==============================================================
+Effective Cutsets for the destination ticket between 11 and 8:
+The most trains needed allowing for 0 removals is 3
+Effective cut sets (minimum total weight among worst cases):
+[()]
+Total cut weight = 0
+The most trains needed allowing for 1 removals is 4
+Effective cut sets (minimum total weight among worst cases):
+[((7, 8),)]
+Total cut weight = 1
+The most trains needed allowing for 2 removals is 9
+Effective cut sets (minimum total weight among worst cases):
+[((7, 11), (11, 12))]
+Total cut weight = 3
+The most trains needed allowing for 3 removals is inf
+Effective cut sets (minimum total weight among worst cases):
+[((1, 11), (7, 11), (11, 12))]
+Total cut weight = 7
+==============================================================
+Effective Cutsets for the destination ticket between 12 and 3:
+The most trains needed allowing for 0 removals is 6
+Effective cut sets (minimum total weight among worst cases):
+[()]
+Total cut weight = 0
+The most trains needed allowing for 1 removals is 10
+Effective cut sets (minimum total weight among worst cases):
+[((3, 6),)]
+Total cut weight = 2
+The most trains needed allowing for 2 removals is 10
+Effective cut sets (minimum total weight among worst cases):
+[((6, 7), (6, 8)), ((3, 6), (6, 8)), ((3, 6), (8, 13)), ((3, 6), (4, 9)), ((3, 6), (14, 15)), ((3, 6), (9, 16)), ((3, 6), (11, 12)), ((3, 6), (7, 8))]
+Total cut weight = 3
+The most trains needed allowing for 3 removals is inf
+Effective cut sets (minimum total weight among worst cases):
+[((2, 3), (3, 4), (3, 6))]
+Total cut weight = 8
+==============================================================
+Effective Cutsets for the destination ticket between 1 and 13:
+The most trains needed allowing for 0 removals is 5
+Effective cut sets (minimum total weight among worst cases):
+[()]
+Total cut weight = 0
+The most trains needed allowing for 1 removals is 6
+Effective cut sets (minimum total weight among worst cases):
+[((7, 13),)]
+Total cut weight = 1
+The most trains needed allowing for 2 removals is 7
+Effective cut sets (minimum total weight among worst cases):
+[((7, 13), (8, 13))]
+Total cut weight = 2
+The most trains needed allowing for 3 removals is 8
+Effective cut sets (minimum total weight among worst cases):
+[((7, 13), (8, 13), (11, 12))]
+Total cut weight = 3
+==============================================================
+Effective Cutsets for the destination ticket between 3 and 10:
+The most trains needed allowing for 0 removals is 7
+Effective cut sets (minimum total weight among worst cases):
+[()]
+Total cut weight = 0
+The most trains needed allowing for 1 removals is 9
+Effective cut sets (minimum total weight among worst cases):
+[((4, 9),)]
+Total cut weight = 1
+The most trains needed allowing for 2 removals is 13
+Effective cut sets (minimum total weight among worst cases):
+[((3, 4), (3, 6))]
+Total cut weight = 5
+The most trains needed allowing for 3 removals is inf
+Effective cut sets (minimum total weight among worst cases):
+[((2, 3), (3, 4), (3, 6))]
+Total cut weight = 8
+==============================================================
+Effective Cutsets for the destination ticket between 8 and 10:
+The most trains needed allowing for 0 removals is 6
+Effective cut sets (minimum total weight among worst cases):
+[()]
+Total cut weight = 0
+The most trains needed allowing for 1 removals is 8
+Effective cut sets (minimum total weight among worst cases):
+[((8, 9),)]
+Total cut weight = 3
+The most trains needed allowing for 2 removals is 9
+Effective cut sets (minimum total weight among worst cases):
+[((9, 10), (10, 16))]
+Total cut weight = 6
+The most trains needed allowing for 3 removals is 9
+Effective cut sets (minimum total weight among worst cases):
+[((8, 13), (9, 10), (9, 16)), ((4, 9), (8, 9), (8, 13)), ((6, 8), (8, 9), (8, 13))]
+Total cut weight = 5
+==============================================================
+Effective Cutsets for the destination ticket between 15 and 6:
+The most trains needed allowing for 0 removals is 4
+Effective cut sets (minimum total weight among worst cases):
+[()]
+Total cut weight = 0
+The most trains needed allowing for 1 removals is 5
+Effective cut sets (minimum total weight among worst cases):
+[((6, 8),), ((8, 13),)]
+Total cut weight = 1
+The most trains needed allowing for 2 removals is 7
+Effective cut sets (minimum total weight among worst cases):
+[((7, 13), (8, 13))]
+Total cut weight = 2
+The most trains needed allowing for 3 removals is 11
+Effective cut sets (minimum total weight among worst cases):
+[((4, 9), (6, 7), (6, 8))]
+Total cut weight = 4
+==============================================================
+Effective Cutsets for the destination ticket between 11 and 9:
+The most trains needed allowing for 0 removals is 6
+Effective cut sets (minimum total weight among worst cases):
+[()]
+Total cut weight = 0
+The most trains needed allowing for 1 removals is 7
+Effective cut sets (minimum total weight among worst cases):
+[((7, 8),)]
+Total cut weight = 1
+The most trains needed allowing for 2 removals is 12
+Effective cut sets (minimum total weight among worst cases):
+[((7, 11), (11, 12))]
+Total cut weight = 3
+The most trains needed allowing for 3 removals is inf
+Effective cut sets (minimum total weight among worst cases):
+[((1, 11), (7, 11), (11, 12))]
+Total cut weight = 7
+==============================================================
+Effective Cutsets for the destination ticket between 2 and 17:
+The most trains needed allowing for 0 removals is 9
+Effective cut sets (minimum total weight among worst cases):
+[()]
+Total cut weight = 0
+The most trains needed allowing for 1 removals is 10
+Effective cut sets (minimum total weight among worst cases):
+[((6, 8),), ((8, 13),)]
+Total cut weight = 1
+The most trains needed allowing for 2 removals is 11
+Effective cut sets (minimum total weight among worst cases):
+[((2, 6), (9, 16)), ((2, 6), (4, 9))]
+Total cut weight = 4
+The most trains needed allowing for 3 removals is inf
+Effective cut sets (minimum total weight among worst cases):
+[((1, 2), (2, 3), (2, 6))]
+Total cut weight = 8
+==============================================================
+Effective Cutsets for the destination ticket between 14 and 4:
+The most trains needed allowing for 0 removals is 5
+Effective cut sets (minimum total weight among worst cases):
+[()]
+Total cut weight = 0
+The most trains needed allowing for 1 removals is 6
+Effective cut sets (minimum total weight among worst cases):
+[((4, 9),), ((14, 15),), ((9, 16),)]
+Total cut weight = 1
+The most trains needed allowing for 2 removals is 8
+Effective cut sets (minimum total weight among worst cases):
+[((4, 9), (13, 14)), ((9, 16), (13, 14))]
+Total cut weight = 2
+The most trains needed allowing for 3 removals is 11
+Effective cut sets (minimum total weight among worst cases):
+[((4, 9), (6, 7), (6, 8))]
+Total cut weight = 4
+==============================================================
+Effective Cutsets for the destination ticket between 6 and 9:
+The most trains needed allowing for 0 removals is 4
+Effective cut sets (minimum total weight among worst cases):
+[()]
+Total cut weight = 0
+The most trains needed allowing for 1 removals is 4
+Effective cut sets (minimum total weight among worst cases):
+[((4, 9),), ((6, 8),)]
+Total cut weight = 1
+The most trains needed allowing for 2 removals is 7
+Effective cut sets (minimum total weight among worst cases):
+[((4, 9), (8, 9))]
+Total cut weight = 4
+The most trains needed allowing for 3 removals is 10
+Effective cut sets (minimum total weight among worst cases):
+[((4, 9), (6, 7), (6, 8))]
+Total cut weight = 4
+==============================================================
+Effective Cutsets for the destination ticket between 12 and 5:
+The most trains needed allowing for 0 removals is 9
+Effective cut sets (minimum total weight among worst cases):
+[()]
+Total cut weight = 0
+The most trains needed allowing for 1 removals is 11
+Effective cut sets (minimum total weight among worst cases):
+[((5, 9),)]
+Total cut weight = 3
+The most trains needed allowing for 2 removals is 11
+Effective cut sets (minimum total weight among worst cases):
+[((8, 9), (9, 16)), ((5, 9), (9, 16)), ((5, 9), (8, 13)), ((5, 9), (7, 8)), ((4, 9), (5, 9)), ((5, 9), (6, 8)), ((5, 9), (14, 15))]
+Total cut weight = 4
+The most trains needed allowing for 3 removals is inf
+Effective cut sets (minimum total weight among worst cases):
+[((4, 5), (5, 9), (5, 10))]
+Total cut weight = 10
+==============================================================
+Effective Cutsets for the destination ticket between 2 and 7:
+The most trains needed allowing for 0 removals is 5
+Effective cut sets (minimum total weight among worst cases):
+[()]
+Total cut weight = 0
+The most trains needed allowing for 1 removals is 6
+Effective cut sets (minimum total weight among worst cases):
+[((2, 6),)]
+Total cut weight = 3
+The most trains needed allowing for 2 removals is 7
+Effective cut sets (minimum total weight among worst cases):
+[((1, 2), (2, 6))]
+Total cut weight = 5
+The most trains needed allowing for 3 removals is inf
+Effective cut sets (minimum total weight among worst cases):
+[((1, 2), (2, 3), (2, 6))]
+Total cut weight = 8
+==============================================================
+Effective Cutsets for the destination ticket between 13 and 5:
+The most trains needed allowing for 0 removals is 7
+Effective cut sets (minimum total weight among worst cases):
+[()]
+Total cut weight = 0
+The most trains needed allowing for 1 removals is 9
+Effective cut sets (minimum total weight among worst cases):
+[((5, 9),)]
+Total cut weight = 3
+The most trains needed allowing for 2 removals is 10
+Effective cut sets (minimum total weight among worst cases):
+[((5, 9), (8, 13))]
+Total cut weight = 4
+The most trains needed allowing for 3 removals is inf
+Effective cut sets (minimum total weight among worst cases):
+[((4, 5), (5, 9), (5, 10))]
+Total cut weight = 10
+==============================================================
+Effective Cutsets for the destination ticket between 7 and 15:
+The most trains needed allowing for 0 removals is 3
+Effective cut sets (minimum total weight among worst cases):
+[()]
+Total cut weight = 0
+The most trains needed allowing for 1 removals is 4
+Effective cut sets (minimum total weight among worst cases):
+[((7, 13),)]
+Total cut weight = 1
+The most trains needed allowing for 2 removals is 7
+Effective cut sets (minimum total weight among worst cases):
+[((13, 15), (14, 15))]
+Total cut weight = 3
+The most trains needed allowing for 3 removals is 7
+Effective cut sets (minimum total weight among worst cases):
+[((13, 14), (13, 15), (14, 15)), ((9, 16), (13, 15), (14, 15)), ((7, 13), (13, 15), (14, 15)), ((7, 8), (13, 15), (14, 15))]
+Total cut weight = 4
+==============================================================
+Effective Cutsets for the destination ticket between 6 and 7:
+The most trains needed allowing for 0 removals is 2
+Effective cut sets (minimum total weight among worst cases):
+[()]
+Total cut weight = 0
+The most trains needed allowing for 1 removals is 2
+Effective cut sets (minimum total weight among worst cases):
+[((6, 8),), ((7, 8),)]
+Total cut weight = 1
+The most trains needed allowing for 2 removals is 8
+Effective cut sets (minimum total weight among worst cases):
+[((6, 7), (6, 8))]
+Total cut weight = 3
+The most trains needed allowing for 3 removals is 8
+Effective cut sets (minimum total weight among worst cases):
+[((4, 9), (6, 7), (6, 8)), ((6, 7), (6, 8), (7, 8)), ((6, 7), (7, 8), (8, 13))]
+Total cut weight = 4
+==============================================================
+Effective Cutsets for the destination ticket between 12 and 17:
+The most trains needed allowing for 0 removals is 5
+Effective cut sets (minimum total weight among worst cases):
+[()]
+Total cut weight = 0
+The most trains needed allowing for 1 removals is 6
+Effective cut sets (minimum total weight among worst cases):
+[((12, 14),)]
+Total cut weight = 2
+The most trains needed allowing for 2 removals is 7
+Effective cut sets (minimum total weight among worst cases):
+[((12, 13), (12, 14))]
+Total cut weight = 4
+The most trains needed allowing for 3 removals is 12
+Effective cut sets (minimum total weight among worst cases):
+[((14, 17), (15, 17), (16, 17))]
+Total cut weight = 7
+==============================================================
+Effective Cutsets for the destination ticket between 13 and 9:
+The most trains needed allowing for 0 removals is 4
+Effective cut sets (minimum total weight among worst cases):
+[()]
+Total cut weight = 0
+The most trains needed allowing for 1 removals is 5
+Effective cut sets (minimum total weight among worst cases):
+[((8, 13),)]
+Total cut weight = 1
+The most trains needed allowing for 2 removals is 6
+Effective cut sets (minimum total weight among worst cases):
+[((8, 9), (9, 16))]
+Total cut weight = 4
+The most trains needed allowing for 3 removals is 10
+Effective cut sets (minimum total weight among worst cases):
+[((4, 9), (8, 9), (9, 16))]
+Total cut weight = 5
