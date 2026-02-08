@@ -4,6 +4,7 @@ import heapq
 from numpy import linalg as LA
 import matplotlib.pyplot as plt 
 import networkx as nx
+import itertools
 from numpy.linalg import matrix_power
 from collections import deque
 from Graph_Data import Graph, adj_list_EU, adj_list_Am, adj_list_FJ, adj_list_FJE, adj_list_London, routes_Germany
@@ -110,6 +111,9 @@ def avg_deg_vs_size():
         num_vertices.append(n)
         avg_degrees.append(avg_deg)
         labels.append(name)
+        
+        print(name)
+        print(avg_deg)
     
     # --- Plot ---
     plt.scatter(num_vertices, avg_degrees)
@@ -453,14 +457,14 @@ def adaptive_lambda_all_outcomes(adj, s, t, lam):
     def recurse(k, removed_sequence):
         dist = dijkstra_shortest_path(adj, s, t)
 
-        # disconnected
         if dist == inf:
-            outcomes[tuple(removed_sequence)] = inf
+            canonical = tuple(sorted(removed_sequence))
+            outcomes[canonical] = inf
             return
-
-        # no more removals allowed
+        
         if k == 0:
-            outcomes[tuple(removed_sequence)] = dist
+            canonical = tuple(sorted(removed_sequence))
+            outcomes[canonical] = dist
             return
 
         paths = find_paths(adj, s, t, dist)
@@ -469,7 +473,7 @@ def adaptive_lambda_all_outcomes(adj, s, t, lam):
         for path in paths:
             for i in range(len(path) - 1):
                 u, v = path[i], path[i+1]
-                edges.add((u, v))
+                edges.add(tuple(sorted((u, v))))
 
         for (u, v) in edges:
             w = remove_edge(adj, u, v)
@@ -483,13 +487,107 @@ def adaptive_lambda_all_outcomes(adj, s, t, lam):
     recurse(lam, [])
     return outcomes
 
-# result = adaptive_lambda_all_outcomes(adj_list_London_W, 1, 10, 3)
-# max_val = max(result.values())
+def cutset_weight(adj, cutset):
+    total = 0
+    for u, v in cutset:
+        for nbr, w in adj[u]:
+            if nbr == v:
+                total += w
+                break
+        else:  # only runs if break never happened
+            for nbr, w in adj[v]:
+                if nbr == u:
+                    total += w
+                    break
+    return total
 
-# max_sequences = [k for k, v in result.items() if v == max_val]
+def is_connected_after_removal(adj, removed):
+    """Check if graph is connected after removing some vertices."""
+    remaining = set(adj) - set(removed)
+    if not remaining:
+        return False
 
-# print(f"The most trains needed to complete the destination ticket allowing for 3 removals is {max_val}")
-# print("The edge removal sets that forced this are the following:")
-# print(max_sequences)
+    visited = set()
+    stack = [next(iter(remaining))]
 
-avg_deg_vs_size()
+    while stack:
+        v = stack.pop()
+        if v not in visited:
+            visited.add(v)
+            for u in adj[v]:
+                if u in remaining:
+                    stack.append(u)
+
+    return visited == remaining
+
+
+def vertex_connectivity(adj):
+    """
+    Compute the vertex connectivity κ(G) of a graph.
+
+    adj: dict {vertex: [neighbors]}
+    Returns: integer connectivity
+    """
+    vertices = list(adj)
+
+    # If already disconnected
+    if not is_connected_after_removal(adj, []):
+        return 0
+
+    for k in range(1, len(vertices)):
+        # Check all sets of k vertices
+        for removed in itertools.combinations(vertices, k):
+            if not is_connected_after_removal(adj, removed):
+                return k
+
+    # Fully connected complete graph
+    return len(vertices) - 1
+
+
+
+for u,v in routes_London:
+    
+    print("==============================================================")
+    print(f"Effective Cutsets for the destination ticket between {u} and {v}:")
+    
+    for k in [0, 1, 2, 3]:
+        result = adaptive_lambda_all_outcomes(adj_list_London_W, u, v, k)
+        max_val = max(result.values())
+    
+        max_sequences = [seq for seq, v in result.items() if v == max_val]
+    
+        # compute total cut weight for each candidate
+        weights = {
+            seq: cutset_weight(adj_list_London_W, seq)
+            for seq in max_sequences
+        }
+    
+        min_weight = min(weights.values())
+    
+        effective_cutsets = [
+            seq for seq, w in weights.items() if w == min_weight
+        ]
+    
+        print(f"The most trains needed allowing for {k} removals is {max_val}")
+        print("Effective cut sets (minimum total weight among worst cases):")
+        print(effective_cutsets)
+        print(f"Total cut weight = {min_weight}")
+
+# This process finds first all cutset candiates over lambda 1 2 3. Then it goes through this again to find those of which
+# force the opponent into the longest possible shortest path at the given lambda. Then between these candidates it finally outputs
+# those that have a minimum weight so that defensively it is easier to block. These best edges are those that then show up over these 
+# the. In thje example this is surpring given 9 10 and 10 16 are so close to each other and of equal weight yet celarly 9 10 is more important
+
+# print("London", "Vertex connectivity:", vertex_connectivity(adj_list_London))
+# print("New York", "Vertex connectivity:", vertex_connectivity(adj_list_NY))
+# print("America", "Vertex connectivity:", vertex_connectivity(adj_list_USA))
+# print("Amsterdam","Vertex connectivity:", vertex_connectivity(adj_list_Am))
+# print("Europe", "Vertex connectivity:", vertex_connectivity(adj_list_EU))
+# print("FJ (USA)", "Vertex connectivity:", vertex_connectivity(adj_list_FJ))
+# print("FJ (EU)", "Vertex connectivity:", vertex_connectivity(adj_list_FJE))
+# print("Germany", "Vertex connectivity:", vertex_connectivity(adj_list_GER))
+# print("HoA", "Vertex connectivity:", vertex_connectivity(adj_list_HoA))
+# print("India", "Vertex connectivity:", vertex_connectivity(adj_list_India))
+# print("Old West", "Vertex connectivity:", vertex_connectivity(adj_list_OW))
+# print("PENN", "Vertex connectivity:", vertex_connectivity(adj_list_PEN))
+# print("Nederlands", "Vertex connectivity:", vertex_connectivity(adj_NL))

@@ -73,6 +73,18 @@ def plot_face_degree_histogram(faces, title="Face Degree Distribution"):
     plt.title(title)
     plt.xticks(xs)
     plt.show()
+    
+    
+G = nx.Graph(adj_NL)
+pos = nx.planar_layout(G)
+    
+rot_London = make_rotation_system(adj_NL, pos)
+
+face_list = find_faces(rot_London)
+    
+plot_face_degree_histogram(face_list, "Face Degree Distribution (Nederlands)")
+
+    
 
 
 def face_weight(face, edge_weights):
@@ -142,15 +154,15 @@ def face_degree_counts(faces):
         counts.append(c)
     return counts
 
-G = nx.Graph(adj_list_USA)
-pos = nx.planar_layout(G)
+# G = nx.Graph(adj_list_USA)
+# pos = nx.planar_layout(G)
     
-rot_London = make_rotation_system(adj_list_USA, pos)
+# rot_London = make_rotation_system(adj_list_USA, pos)
 
-face_list = find_faces(rot_London)
+# face_list = find_faces(rot_London)
 
-print(face_list)
-print(face_info(adj_list_USA, adj_list_USA_W, pos))
+# print(face_list)
+# print(face_info(adj_list_USA, adj_list_USA_W, pos))
 #plot_face_degree_histogram(face_list, title = "Face Degree Distribution (Pennsylvania)")
 
 
