@@ -542,3 +542,4 @@ def vertex_connectivity(adj):
 
     # Fully connected complete graph
     return len(vertices) - 1
+
